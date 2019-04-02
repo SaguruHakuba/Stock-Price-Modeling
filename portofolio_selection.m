@@ -13,22 +13,22 @@ R(:,9) = (table2array(C(2:end, 5)) - table2array(C(1:end-1, 5))) ./ table2array(
 R(:,10) = (table2array(COST(2:end, 5)) - table2array(COST(1:end-1, 5))) ./ table2array(COST(1:end-1, 5));
 
 r = mean(R);
-C = cov(R);
+CC = cov(R);
 alpha = 0.2;
 
-expected_return = zeros(number_of_stocks, 11);
+expected_return = zeros(number_of_stocks, 101);
 risk = zeros(1,11);
 i = 1;
 
-for alpha = 0:0.1:1
-    [w, optVal] = quadprog((1-alpha)*2*C, -alpha*r, [], [], ones(1,number_of_stocks), [1], zeros(number_of_stocks,1), ones(number_of_stocks,1));
+for alpha = [0:0.01:1].^2
+    [w, optVal] = quadprog((1-alpha)*2*CC, -alpha*r, [], [], ones(1,number_of_stocks), [1], zeros(number_of_stocks,1), ones(number_of_stocks,1));
     expected_return(:, i) = r'.*w;
-    risk(1, i) = w'*C*w;
+    risk(1, i) = w'*CC*w;
     i = i+1;
 end
 
 figure(1);
 title('Efficient frontiers for portfolio selected');
 plot(risk, expected_return);
-legend({'AAPL','ADBE','ADDYY','ADSK'},'Location','best');
+legend({'AAPL','ADBE','ADDYY','ADSK','AMD','AMZN','AXP','BA','BRKB','C','COST'},'Location','best');
 xlabel('Risk'); ylabel('Expected Return');
