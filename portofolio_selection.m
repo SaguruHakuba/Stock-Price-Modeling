@@ -30,5 +30,5 @@ end
 figure(1);
 title('Efficient frontiers for portfolio selected');
 plot(risk, expected_return);
-legend({'AAPL','ADBE','ADDYY','ADSK','AMD','AMZN','AXP','BA','BRKB','C','COST'},'Location','best');
+legend({'AAPL','ADBE','ADDYY','ADSK','AMZN','AXP','BA','BRKB','C','COST'},'Location','best');
 xlabel('Risk'); ylabel('Expected Return');
